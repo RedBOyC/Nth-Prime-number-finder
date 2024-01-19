@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+// Function to check if a number is prime
+int isPrime(int num) {
+    if (num < 2) {
+        return 0; // Not prime
+    }
+    for (int i = 2; i * i <= num; i++) {
+        if (num % i == 0) {
+            return 0; // Not prime
+        }
+    }
+    return 1; // Prime
+}
+
+// Function to calculate the mth prime number based on set A
+int calculateMthPrime(int m) {
+    if (m <= 0) {
+        return -1; // Invalid input
+    }
+
+    int n = 0; // Starting value of n in the AP
+    int count = 0; // Count of prime numbers found
+
+    while (count < m) {
+        // Calculate the corresponding value of n in the AP
+        int nValue = 2 * n + 3;
+
+        // Check if the nValue is prime based on the Exemption Rule
+        if (isPrime(nValue)) {
+            count++;
+            if (count == m) {
+                return nValue; // Return the mth prime number
+            }
+        }
+
+        // Increment n for the next iteration
+        n++;
+    }
+
+    return -1; // Program should not reach here under normal circumstances
+}
+
+int main() {
+    int m;
+
+    // Input the value for m
+    printf("Enter the value for m: ");
+    scanf("%d", &m);
+
+    // Calculate and display the mth prime number
+    int result = calculateMthPrime(m);
+    if (result != -1) {
+        printf("The %dth prime number is: %d\n", m, result);
+    } else {
+        printf("Invalid input or an error occurred.\n");
+    }
+
+    return 0;
+}
